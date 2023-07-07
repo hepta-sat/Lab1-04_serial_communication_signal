@@ -1,12 +1,13 @@
 #include "mbed.h"
 
-DigitalOut myled(LED1);
+RawSerial pc(USBTX,USBRX);
+RawSerial sig(p13,p14);
 
 int main() {
-  while(1) {
-    myled = 1;
-    wait(0.2);
-    myled = 0;
-    wait(0.2);
-  }
+    char c;
+    while(1) {
+        c = pc.getc();
+        pc.putc(c);
+        sig.putc(c);
+    }
 }
